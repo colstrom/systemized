@@ -1,0 +1,47 @@
+#+TITLE: Systemized
+
+* Overview
+
+=Systemized= exposes systemd components as Ruby Objects.
+
+* Why does this exist?
+
+As an attempt to tame some of the complexity of =systemd=.
+
+* Installation
+
+#+BEGIN_SRC shell
+  gem install systemized
+#+END_SRC
+
+* Usage
+
+The following will read the last ten log entries for the =concourse-worker= service.
+
+#+BEGIN_SRC ruby
+  require 'systemized'
+
+  service = Systemized::Service.new 'concourse-worker'
+
+  service.journal.read(10)
+#+END_SRC
+
+This will stop the =concourse-worker= service if it is current active, then start it.
+
+#+BEGIN_SRC ruby
+  require 'systemized'
+
+  service = Systemized::Service.new 'concourse-worker'
+
+  service.stop if service.active?
+
+  service.start
+#+END_SRC
+
+* License
+
+  ~hyperdock~ is available under the [[https://tldrlegal.com/license/mit-license][MIT License]]. See ~LICENSE.txt~ for the full text.
+
+* Contributors
+
+  - [[https://colstrom.github.io/][Chris Olstrom]] | [[mailto:chris@olstrom.com][e-mail]] | [[https://twitter.com/ChrisOlstrom][Twitter]]
